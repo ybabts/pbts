@@ -4,7 +4,7 @@ import { encode } from "./encode.ts";
 
 Deno.test("wires/varint/decodeNumber > should decode correctly", () => {
   const bytes = new Uint8Array([0x81, 0x01]);
-  const result = decodeNumber(bytes);
+  const [result] = decodeNumber(bytes);
   assertEquals(result, 129);
 });
 
@@ -65,7 +65,7 @@ Deno.test("wires/varint/decodeBigint > should decode correctly", () => {
     0x81,
     0x01,
   ]);
-  const result = decodeBigint(bytes);
+  const [result] = decodeBigint(bytes);
   assertEquals(result, BigInt("567382630219905"));
 });
 
@@ -98,7 +98,7 @@ Deno.test("wires/varint/decodeBigint > should throw if offset is negative", () =
 
 Deno.test("wires/varint/decode > should defer to continuationDecodeNumber if decoded value is small", () => {
   const bytes = new Uint8Array([0x81, 0x01]);
-  const result = decode(bytes);
+  const [result] = decode(bytes);
   assertEquals(result, 129);
 });
 
@@ -114,7 +114,7 @@ Deno.test("wires/varint/decode > should defer to continuationDecodeBigInt if dec
     0x01,
   ]);
   const encodedBytes = new Uint8Array(8);
-  const result = decode(bytes);
+  const [result] = decode(bytes);
   encode(encodedBytes, result);
   assertEquals(encodedBytes, bytes);
   assertEquals(result, 567382630219905);

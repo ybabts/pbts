@@ -19,10 +19,9 @@ export function decode(buffer: Uint8Array, offset = 0): Uint8Array {
   }
   // I assume that the length of the message will never be greater than MAX_SAFE_INTEGER
   // there's no way that you'll ever need a message that's 9 petabytes long
-  const length = varint.decodeNumber(buffer, offset);
-  const bufferLength = varint.calcSize(length);
-  if (buffer.length < length + bufferLength) {
+  const [length, byteLength] = varint.decodeNumber(buffer, offset);
+  if (buffer.length < length + byteLength) {
     throw new RangeError("Buffer is too short to contain the message");
   }
-  return buffer.subarray(bufferLength + offset, bufferLength + length + offset);
+  return buffer.subarray(byteLength + offset, byteLength + length + offset);
 }

@@ -9,7 +9,7 @@
 export function decodeNumber(
   bytes: Uint8Array,
   offset = 0,
-): number {
+): [number, number] {
   if (bytes.length === 0) {
     throw new Error("Cannot decode an empty array as a varint.");
   }
@@ -24,7 +24,7 @@ export function decodeNumber(
   if (result > Number.MAX_SAFE_INTEGER) {
     throw new Error("Varint is too large to decode as a number.");
   }
-  return result;
+  return [result, shift];
 }
 
 /**
@@ -38,7 +38,7 @@ export function decodeNumber(
 export function decodeBigint(
   bytes: Uint8Array,
   offset = 0,
-): bigint {
+): [bigint, number] {
   if (bytes.length === 0) {
     throw new Error("Cannot decode an empty array as a varint.");
   }
@@ -50,7 +50,7 @@ export function decodeBigint(
     result += BigInt(bytes[offset] & 0x7F) * (BigInt(2) ** (shift * BigInt(7)));
     shift++;
   } while ((bytes[offset++] & 0x80) !== 0);
-  return result;
+  return [result, Number(shift)];
 }
 
 /**
@@ -64,7 +64,7 @@ export function decodeBigint(
 export function decode(
   bytes: Uint8Array,
   offset = 0,
-): number | bigint {
+): [number | bigint, number] {
   let i;
   for (i = offset; i < bytes.length && i - offset <= 7; i++) {
     if (bytes[i] <= 0x7F) break;
