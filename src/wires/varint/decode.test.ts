@@ -87,7 +87,6 @@ Deno.test("wires/varint/decodeBigint > should throw if byte array is empty", () 
   );
 });
 
-
 Deno.test("wires/varint/decodeBigint > should throw if offset is negative", () => {
   const bytes = new Uint8Array([0x81, 0x01]);
   assertThrows(
