@@ -13,7 +13,8 @@ export function decodeNumber(
   if (bytes.length === 0) {
     throw new Error("Cannot decode an empty array as a varint.");
   }
-  if (offset >= bytes.length) throw new Error("Offset is out of bounds.");
+  if (offset >= bytes.length) throw new RangeError("Offset is out of bounds.");
+  if (offset < 0) throw new RangeError("Offset cannot be negative.");
   let result = 0;
   let shift = 0;
   do {
@@ -41,7 +42,8 @@ export function decodeBigint(
   if (bytes.length === 0) {
     throw new Error("Cannot decode an empty array as a varint.");
   }
-  if (offset >= bytes.length) throw new Error("Offset is out of bounds.");
+  if (offset >= bytes.length) throw new RangeError("Offset is out of bounds.");
+  if (offset < 0) throw new RangeError("Offset cannot be negative.");
   let result = BigInt(0);
   let shift = BigInt(0);
   do {

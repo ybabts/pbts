@@ -2,7 +2,7 @@ import { assertEquals } from "../../deps.ts";
 import { decode, decodeBigint, decodeNumber } from "./decode.ts";
 import { encode, encodeBigint, encodeNumber } from "./encode.ts";
 
-Deno.test("continuationEncodeNumber and continuationDecodeNumber should be reversible", () => {
+Deno.test("wires/varint/mod encodeNumber and decodeNumber should be reversible", () => {
   const bytes = new Uint8Array(2);
   const originalValue = 129;
   encodeNumber(bytes, originalValue);
@@ -10,7 +10,7 @@ Deno.test("continuationEncodeNumber and continuationDecodeNumber should be rever
   assertEquals(decodedValue, originalValue);
 });
 
-Deno.test("continuationEncodeBigInt and continuationDecodeBigInt should be reversible", () => {
+Deno.test("wires/varint/mod encodeBigint and decodeBigint should be reversible", () => {
   const bytes = new Uint8Array(2);
   const originalValue = BigInt(129);
   encodeBigint(bytes, originalValue);
@@ -18,7 +18,7 @@ Deno.test("continuationEncodeBigInt and continuationDecodeBigInt should be rever
   assertEquals(decodedValue, originalValue);
 });
 
-Deno.test("continuationEncode and continuationDecode should be reversible for numbers", () => {
+Deno.test("wires/varint/mod encode and decode should be reversible for numbers", () => {
   const bytes = new Uint8Array(2);
   const originalValue = 129;
   encode(bytes, originalValue);
@@ -26,7 +26,7 @@ Deno.test("continuationEncode and continuationDecode should be reversible for nu
   assertEquals(decodedValue, originalValue);
 });
 
-Deno.test(`continuationEncode and continuationDecode should be reversible for bigints`, () => {
+Deno.test(`wires/varint/mod encode and decode should be reversible for bigints`, () => {
   const bytes = new Uint8Array(9);
   const originalValue = BigInt("9007199254740991003");
   encode(bytes, originalValue);

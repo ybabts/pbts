@@ -1,13 +1,13 @@
 import { assertEquals, assertThrows } from "../../deps.ts";
 import { encode, encodeBigint, encodeNumber } from "./encode.ts";
 
-Deno.test("wires/varint/encode:number > should encode correctly", () => {
+Deno.test("wires/varint/encodeNumber > should encode correctly", () => {
   const bytes = new Uint8Array(2);
   encodeNumber(bytes, 129);
   assertEquals(bytes, new Uint8Array([0x81, 0x01])); // Represents 129
 });
 
-Deno.test("wires/varint/encode:number > should throw if value is too large", () => {
+Deno.test("wires/varint/encodeNumber > should throw if value is too large", () => {
   const bytes = new Uint8Array(2);
   assertThrows(
     () => encodeNumber(bytes, Number.MAX_SAFE_INTEGER + 1),
@@ -16,7 +16,7 @@ Deno.test("wires/varint/encode:number > should throw if value is too large", () 
   );
 });
 
-Deno.test("wires/varint/encode:bigint > should encode correctly", () => {
+Deno.test("wires/varint/encodeBigint > should encode correctly", () => {
   const bytes = new Uint8Array(2);
   encodeBigint(bytes, BigInt(129));
   assertEquals(bytes, new Uint8Array([0x81, 0x01])); // Represents 129
@@ -34,12 +34,12 @@ Deno.test("wires/varint/encode > should defer to continuationEncodeBigInt if val
   assertEquals(bytes, new Uint8Array([0x81, 0x01])); // Represents 129
 });
 
-Deno.test("wires/varint/encode:number > should throw if value is negative", () => {
+Deno.test("wires/varint/encodeNumber > should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
   assertThrows(() => encodeNumber(bytes, -1), Error, "Value is negative.");
 });
 
-Deno.test("wires/varint/encode:bigint > should throw if value is negative", () => {
+Deno.test("wires/varint/encodeBigint > should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
   assertThrows(
     () => encodeBigint(bytes, BigInt(-1)),
