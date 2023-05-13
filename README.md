@@ -42,5 +42,5 @@ const deserializedMessage = deserialize(parsedProto, serializedMessage);
 ## Contributing
 Contributions are welcome! If you encounter any issues, have suggestions, or would like to contribute to the project, please feel free to submit a pull request or open an issue on the GitHub repository.
 
-#License
+## License
 This project is licensed under the MIT License.
