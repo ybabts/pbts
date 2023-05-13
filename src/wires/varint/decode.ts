@@ -2,7 +2,7 @@
  * Decodes a varint from the given bytes at the given offset using MSB continuation bit encoding.
  * @param bytes The bytes to decode.
  * @param offset The offset to start decoding at.
- * @returns The decoded varint.
+ * @returns A tuuple containing the decoded varint and the number of bytes read.
  * @throws If the byte array length is 0
  * @throws If the offset is out of bounds
  */
@@ -31,7 +31,7 @@ export function decodeNumber(
  * Decodes a varint from the given bytes at the given offset using MSB continuation bit encoding.
  * @param bytes The bytes to decode.
  * @param offset The offset to start decoding at.
- * @returns The decoded varint.
+ * @returns A tuuple containing the decoded varint and the number of bytes read.
  * @throws If the byte array length is 0
  * @throws If the offset is out of bounds
  */
@@ -57,7 +57,7 @@ export function decodeBigint(
  * Decodes a varint from the given bytes at the given offset using MSB continuation bit encoding. Defers to continuationDecodeNumber if the decoded value is less than or equal to the maximum safe integer. Otherwise, defers to continuationDecodeBigInt.
  * @param bytes The bytes to decode. Must be at least 1 byte long.
  * @param offset The offset to start decoding at. Defaults to 0.
- * @returns The decoded varint. If the decoded value is larger than the maximum safe integer, it will be returned as a bigint.
+ * @returns A tuuple containing the decoded varint and the number of bytes read. If the decoded value is larger than the maximum safe integer, it will be returned as a bigint.
  * @throws If the byte array length is 0
  * @throws If the offset is out of bounds
  */
