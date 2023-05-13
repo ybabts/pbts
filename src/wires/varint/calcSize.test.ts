@@ -1,4 +1,4 @@
-import { assertEquals } from "../../deps.ts";
+import { assertEquals, assertThrows } from "../../deps.ts";
 import { calcSize, calcSizeBigint, calcSizeNumber } from "./calcSize.ts";
 
 Deno.test('wires/varint/calcSize:number > Calculation Test (2 bytes)', () => {
@@ -48,4 +48,16 @@ Deno.test('wires/varint/calcSize > will handle large numbers', () => {
   const expectedResult = 8;
   const actualResult = calcSize(varintValue);
   assertEquals(actualResult, expectedResult);
+});
+
+Deno.test('wires/varint/calcSize > will throw error on a negative number', () => {
+  assertThrows(() => calcSize(-1));
+});
+
+Deno.test('wires/varint/calcSize:bigint > will throw error on a negative number', () => {
+  assertThrows(() => calcSizeBigint(-1n));
+});
+
+Deno.test('wires/varint/calcSize:number > will throw error on a negative number', () => {
+  assertThrows(() => calcSizeNumber(-1));
 });
