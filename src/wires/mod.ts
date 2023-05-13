@@ -1,1 +1,1 @@
-export * as varint from './varint/mod.ts';
+export * as varint from "./varint/mod.ts";

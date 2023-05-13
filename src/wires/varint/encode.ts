@@ -1,4 +1,3 @@
-
 /**
  * Encodes a number as a varint using MSB continuation bit encoding and writes it to the given bytes at the given offset.
  * @param bytes The bytes to write the encoded varint to.
@@ -7,10 +6,14 @@
  * @returns Nothing.
  * @throws If the value is too large to encode as a number.
  */
-export function encodeNumber(bytes: Uint8Array, value: number, offset = 0): void {
-  if(value < 0) throw new Error('Value is negative.');
+export function encodeNumber(
+  bytes: Uint8Array,
+  value: number,
+  offset = 0,
+): void {
+  if (value < 0) throw new Error("Value is negative.");
   if (value > Number.MAX_SAFE_INTEGER) {
-    throw new Error('Value is too large to encode as a number.');
+    throw new Error("Value is too large to encode as a number.");
   }
   do {
     bytes[offset] = value & 0x7F;
@@ -28,8 +31,12 @@ export function encodeNumber(bytes: Uint8Array, value: number, offset = 0): void
  * @returns Nothing.
  * @throws If the value is negative.
  */
-export function encodeBigint(bytes: Uint8Array, value: bigint, offset = 0): void {
-  if(value < 0) throw new Error('Value is negative.');
+export function encodeBigint(
+  bytes: Uint8Array,
+  value: bigint,
+  offset = 0,
+): void {
+  if (value < 0) throw new Error("Value is negative.");
   do {
     bytes[offset] = Number(value & BigInt(0x7F));
     if (value > BigInt(0x7F)) bytes[offset] |= 0x80;
@@ -47,8 +54,12 @@ export function encodeBigint(bytes: Uint8Array, value: bigint, offset = 0): void
  * @throws If the value is negative.
  * @throws If the value is too large to encode as a number.
  */
-export function encode(bytes: Uint8Array, value: number | bigint, offset = 0): void {
-  if (typeof value === 'bigint') {
+export function encode(
+  bytes: Uint8Array,
+  value: number | bigint,
+  offset = 0,
+): void {
+  if (typeof value === "bigint") {
     encodeBigint(bytes, value, offset);
   } else {
     encodeNumber(bytes, value, offset);

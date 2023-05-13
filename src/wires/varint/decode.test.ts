@@ -1,9 +1,5 @@
 import { assertEquals, assertThrows } from "../../deps.ts";
-import {
-  decode,
-  decodeBigint,
-  decodeNumber,
-} from "./decode.ts";
+import { decode, decodeBigint, decodeNumber } from "./decode.ts";
 import { encode } from "./encode.ts";
 
 Deno.test("wires/varint/decode:number > should decode correctly", () => {

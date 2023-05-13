@@ -1,5 +1,5 @@
 import { assertEquals, assertThrows } from "../../deps.ts";
-import { encodeNumber, encodeBigint, encode } from "./encode.ts";
+import { encode, encodeBigint, encodeNumber } from "./encode.ts";
 
 Deno.test("wires/varint/encode:number > should encode correctly", () => {
   const bytes = new Uint8Array(2);
@@ -9,7 +9,11 @@ Deno.test("wires/varint/encode:number > should encode correctly", () => {
 
 Deno.test("wires/varint/encode:number > should throw if value is too large", () => {
   const bytes = new Uint8Array(2);
-  assertThrows(() => encodeNumber(bytes, Number.MAX_SAFE_INTEGER + 1), Error, 'Value is too large to encode as a number.');
+  assertThrows(
+    () => encodeNumber(bytes, Number.MAX_SAFE_INTEGER + 1),
+    Error,
+    "Value is too large to encode as a number.",
+  );
 });
 
 Deno.test("wires/varint/encode:bigint > should encode correctly", () => {
@@ -32,16 +36,20 @@ Deno.test("wires/varint/encode > should defer to continuationEncodeBigInt if val
 
 Deno.test("wires/varint/encode:number > should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
-  assertThrows(() => encodeNumber(bytes, -1), Error, 'Value is negative.');
+  assertThrows(() => encodeNumber(bytes, -1), Error, "Value is negative.");
 });
 
 Deno.test("wires/varint/encode:bigint > should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
-  assertThrows(() => encodeBigint(bytes, BigInt(-1)), Error, 'Value is negative.');
+  assertThrows(
+    () => encodeBigint(bytes, BigInt(-1)),
+    Error,
+    "Value is negative.",
+  );
 });
 
 Deno.test("wires/varint/encode > should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
-  assertThrows(() => encode(bytes, -1), Error, 'Value is negative.');
-  assertThrows(() => encode(bytes, BigInt(-1)), Error, 'Value is negative.');
+  assertThrows(() => encode(bytes, -1), Error, "Value is negative.");
+  assertThrows(() => encode(bytes, BigInt(-1)), Error, "Value is negative.");
 });
