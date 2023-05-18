@@ -1,4 +1,4 @@
-import { encodeVarint, decodeVarint, calculateVarintSize } from "../mod.ts";
+import { calculateVarintSize, decodeVarint, encodeVarint } from "../mod.ts";
 
 export function encode(data: Uint8Array): Uint8Array {
   if (data.length > Number.MAX_SAFE_INTEGER) {
@@ -20,10 +20,17 @@ export function decode(buffer: Uint8Array, offset = 0): [Uint8Array, number] {
   // I assume that the length of the message will never be greater than MAX_SAFE_INTEGER
   // there's no way that you'll ever need a message that's 9 petabytes long
   const result = decodeVarint(buffer, offset);
-  const byteLength = typeof result === "bigint" ? Number(result & 0b1111111111n) : result & 0b111;
-  const length = typeof result === "bigint" ? Number(result >> 10n) : result >> 3;
+  const byteLength = typeof result === "bigint"
+    ? Number(result & 0b1111111111n)
+    : result & 0b111;
+  const length = typeof result === "bigint"
+    ? Number(result >> 10n)
+    : result >> 3;
   if (buffer.length < length + byteLength) {
     throw new RangeError("Buffer is too short to contain the message");
   }
-  return [buffer.subarray(byteLength + offset, byteLength + length + offset), byteLength + length];
+  return [
+    buffer.subarray(byteLength + offset, byteLength + length + offset),
+    byteLength + length,
+  ];
 }

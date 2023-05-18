@@ -4,7 +4,11 @@ import { encodeVarint } from "./encode.ts";
 Deno.test("wires/varint/encode should throw if value is negative", () => {
   const bytes = new Uint8Array(2);
   assertThrows(() => encodeVarint(bytes, -1), Error, "Value is negative.");
-  assertThrows(() => encodeVarint(bytes, BigInt(-1)), Error, "Value is negative.");
+  assertThrows(
+    () => encodeVarint(bytes, BigInt(-1)),
+    Error,
+    "Value is negative.",
+  );
 });
 
 Deno.test("wires/varint/encode should throw if offset is negative", () => {

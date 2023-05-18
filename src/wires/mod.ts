@@ -9,5 +9,5 @@ export enum WireType {
   StartGroup = 3,
   EndGroup = 4,
   Fixed32 = 5,
-  Reserved = 6
+  Reserved = 6,
 }

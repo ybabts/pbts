@@ -7,4 +7,3 @@ export function encodeTag(fieldNumber: number, wireType: WireType): number {
 export function decodeTag(tag: number): [number, WireType] {
   return [tag >> 3, tag & 7];
 }
-
