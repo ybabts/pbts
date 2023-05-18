@@ -1,5 +1,5 @@
 import { assertEquals, assertThrows } from "../../deps.ts";
-import { decodeVarint, decodeVarintBigint } from "./decode.ts";
+import { decodeVarint } from "./decode.ts";
 
 Deno.test("wires/varint/decodeVarint should throw on negative offset", () => {
   const bytes = new Uint8Array([0x00, 0x81, 0x81, 0x81, 0x81, 0x81, 0x01]);
