@@ -1,3 +1,3 @@
 export * from "./decode.ts";
-export * from "./calcSize.ts";
+export * from "./calculateSize.ts";
 export * from "./encode.ts";

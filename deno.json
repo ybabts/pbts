@@ -1,0 +1,13 @@
+{
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ],
+      "include": [
+        "ban-untagged-todo",
+        "camelcase"
+      ]
+    }
+  }
+}
